@@ -1,0 +1,31 @@
+name: build
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        kernel:
+          - android12-5.10
+          - android13-5.15
+          - android14-6.1
+          - android15-6.6
+          - android16-6.12
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ylarod/ddk:${{ matrix.kernel }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build lkmloader
+        run: make
+      - name: Build demo
+        run: make -C demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lkmloader-${{ matrix.kernel }}
+          path: |
+            lkmloader.ko
+            demo/test_lkm.ko

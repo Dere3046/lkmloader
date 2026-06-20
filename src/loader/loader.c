@@ -33,7 +33,7 @@ static long __nocfi do_load(const char __user *params)
 {
 	int (*load_module_fn)(struct load_info *, const char __user *, int);
 	ssize_t (*kernel_read_file_fn)(struct file *, loff_t, void **,
-				       size_t, size_t *, enum kernel_read_file_id);
+				       size_t, size_t *, int);
 	struct file *(*filp_open_fn)(const char *, int, umode_t);
 	void (*filp_close_fn)(struct file *, fl_owner_t);
 	struct load_info info = {};
@@ -59,7 +59,7 @@ static long __nocfi do_load(const char __user *params)
 		return PTR_ERR(f);
 	}
 
-	len = kernel_read_file_fn(f, 0, &buf, INT_MAX, NULL, READING_MODULE);
+	len = kernel_read_file_fn(f, 0, &buf, INT_MAX, NULL, 1);
 	if (len < 0) {
 		pr_err("lkmloader: read failed: %d\n", len);
 		filp_close_fn(f, NULL);

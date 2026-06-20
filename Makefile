@@ -10,6 +10,7 @@ ccflags-y += -Wno-declaration-after-statement
 ccflags-y += -Wno-unused-variable
 ccflags-y += -Wno-unused-function
 ccflags-y += -Wno-strict-prototypes
+ccflags-y += -Wno-gcc-compat
 
 KDIR ?= /home/Dere3046/code/cyta/kernel
 PWD := $(shell pwd)

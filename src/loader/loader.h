@@ -12,6 +12,7 @@
 
 extern unsigned long (*kln)(const char *name);
 extern char *module_path;
+extern char *module_args;
 
 int lkmloader_schedule_load(void);
 

@@ -14,7 +14,9 @@
 #include "loader.h"
 
 char *module_path = NULL;
+char *module_args = NULL;
 module_param(module_path, charp, 0644);
+module_param(module_args, charp, 0644);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("dere3046");

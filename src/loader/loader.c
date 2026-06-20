@@ -82,11 +82,13 @@ static long __nocfi do_load(const char __user *params)
 unsigned long __nocfi do_in_task_work_c(void)
 {
 	struct pt_regs *regs = current_pt_regs();
-	char __user *params = (char __user *)(regs->sp - 1);
+	const char *args = module_args ? module_args : "";
+	size_t args_len = strlen(args) + 1;
+	char __user *params = (char __user *)(regs->sp - args_len);
 	unsigned long del_mod;
 	long ret;
 
-	ret = copy_to_user(params, "", 1);
+	ret = copy_to_user(params, args, args_len);
 	if (ret) {
 		pr_err("lkmloader: copy params failed\n");
 		return 0;

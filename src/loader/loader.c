@@ -26,8 +26,8 @@
 
 unsigned long (*kln)(const char *name);
 
-static syscall_fn_t *syscall_table;
-static struct pt_regs tmp_regs;
+syscall_fn_t *syscall_table;
+struct pt_regs tmp_regs;
 
 static long __nocfi do_load(const char __user *params)
 {
@@ -79,7 +79,7 @@ static long __nocfi do_load(const char __user *params)
 	return ret;
 }
 
-static unsigned long __nocfi do_in_task_work_c(void)
+unsigned long __nocfi do_in_task_work_c(void)
 {
 	struct pt_regs *regs = current_pt_regs();
 	char __user *params = (char __user *)(regs->sp - 1);

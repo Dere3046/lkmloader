@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
 MODULE_NAME := lkmloader
-$(MODULE_NAME)-objs := src/ksymless/ksymless.o src/loader/loader.o \
+$(MODULE_NAME)-objs := src/ksymless/ksymless_android/lib/core.o src/loader/loader.o \
 	src/loader/patch.o src/main.o
 obj-m := $(MODULE_NAME).o
 

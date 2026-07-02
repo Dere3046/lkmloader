@@ -24,7 +24,6 @@ MODULE_DESCRIPTION("LKM Loader (ksymless)");
 
 static int __init lkmloader_init(void)
 {
-	unsigned long addr;
 	int ret;
 
 	pr_info("lkmloader: init\n");
@@ -37,13 +36,12 @@ static int __init lkmloader_init(void)
 
 	find_kallsyms_base();
 
-	addr = kallsyms_name_to_addr("kallsyms_lookup_name");
-	if (!addr) {
+	kln = ksymless_klp;
+	if (!kln) {
 		pr_err("lkmloader: kallsyms_lookup_name not found\n");
 		return -ENOSYS;
 	}
-	kln = (typeof(kln))addr;
-	pr_info("lkmloader: kln=0x%lx\n", addr);
+	pr_info("lkmloader: kln=0x%lx\n", (unsigned long)kln);
 
 	ret = lkmloader_schedule_load();
 	if (ret) {

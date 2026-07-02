@@ -1,0 +1,3 @@
+[submodule "src/ksymless/ksymless_android"]
+	path = src/ksymless/ksymless_android
+	url = git@github.com:Dere3046/ksymless_Android.git

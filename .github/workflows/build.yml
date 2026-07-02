@@ -16,9 +16,11 @@ jobs:
           - android16-6.12
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ylarod/ddk:${{ matrix.kernel }}
+      image: ghcr.io/ylarod/ddk-min:${{ matrix.kernel }}-20260313
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Build lkmloader
         run: make
       - name: Build demo
